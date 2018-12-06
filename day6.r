@@ -44,4 +44,11 @@ for (i in 1:nrow(DistanceGrid)) {
 }
 
 library(dplyr)
-sum <- group_by(DistanceGrid, point) %>% summary(count = n())
+sum <- group_by(DistanceGrid, point) %>% summarise(count = n())
+sum[match(max(sum$count), sum$count),]  ## 35 4186
+
+## Part 2
+for (i in 1:nrow(DistanceGrid)) {
+  DistanceGrid$total[i] <- sum(DistanceGrid[i, 3:52])
+}
+sum(DistanceGrid$total<10000)  ## 45509
